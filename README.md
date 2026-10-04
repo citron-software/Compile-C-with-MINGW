@@ -10,3 +10,13 @@ La méthode moderne et la plus stable pour installer MinGW sous Windows consiste
    pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
 
 5. Appuyez sur Entrée pour confirmer les choix par défaut, puis tapez Y (Yes) pour lancer le téléchargement et l'installation.
+# Étape 2 : Ajouter MinGW aux variables d'environnement (PATH)
+Pour pouvoir utiliser la commande gcc depuis n'importe quel terminal Windows (Invite de commandes ou PowerShell), il faut déclarer le chemin du compilateur.
+1. Dans la barre de recherche Windows, tapez "Variables d'environnement" et cliquez sur Modifier les variables d'environnement système.
+2. Dans la fenêtre qui s'ouvre, cliquez sur le bouton Variables d'environnement... en bas à droite.
+3. Dans la section Variables système (en bas), cherchez la ligne nommée Path et double-cliquez dessus.
+4. Cliquez sur le bouton Nouveau à droite, puis collez le chemin d'accès exact vers le dossier bin du compilateur installé. Par défaut avec MSYS2, c'est :
+
+   C:\msys64\ucrt64\bin
+
+5. Cliquez sur OK sur toutes les fenêtres ouvertes pour enregistrer les modifications.
