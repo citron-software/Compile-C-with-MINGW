@@ -20,3 +20,10 @@ Pour pouvoir utiliser la commande gcc depuis n'importe quel terminal Windows (In
    C:\msys64\ucrt64\bin
 
 5. Cliquez sur OK sur toutes les fenêtres ouvertes pour enregistrer les modifications.
+# Étape 3 : Vérifier l'installation
+1. Ouvrez une nouvelle Invite de commandes (cmd) ou un nouveau PowerShell (indispensable pour charger le nouveau Path).
+2. Tapez la commande suivante :
+
+   gcc --version
+
+3. Si tout est correct, le terminal affichera la version de GCC (ex: gcc (Rev...) 13.x.x). Si vous avez un message d'erreur indiquant que la commande n'est pas reconnue, redémarrez votre PC.
