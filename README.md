@@ -27,3 +27,17 @@ Pour pouvoir utiliser la commande gcc depuis n'importe quel terminal Windows (In
    gcc --version
 
 3. Si tout est correct, le terminal affichera la version de GCC (ex: gcc (Rev...) 13.x.x). Si vous avez un message d'erreur indiquant que la commande n'est pas reconnue, redémarrez votre PC.
+# Étape 4 : Écrire le code source
+1. Ouvrez un éditeur de texte simple (le Bloc-notes, Notepad++, ou Visual Studio Code).
+2. Copiez-collez ce code de test minimal :
+
+----------------------------------------------
+#include <stdio.h>
+
+int main() {
+    printf("Bravo, MinGW fonctionne parfaitement !\n");
+    return 0;
+}
+
+----------------------------------------------
+3. Enregistrez le fichier sous le nom de main.c dans un dossier facile d'accès (par exemple : C:\Projets). Attention à ce que le fichier ne s'appelle pas main.c.txt.
