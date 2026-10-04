@@ -1,36 +1,35 @@
 # Compile C with MINGW
 FFF
-# Étape 1 : Installer MinGW-w64 via MSYS2
-La méthode moderne et la plus stable pour installer MinGW sous Windows consiste à utiliser le gestionnaire de paquets MSYS2.
-1. Rendez-vous sur le site officiel de MSYS2 et téléchargez l'installateur (fichier .exe).
-2. Lancez l'installateur et suivez les instructions en laissant le dossier d'installation par défaut (C:\msys64).
-3. À la fin de l'installation, cochez la case pour ouvrir le terminal MSYS2 UCRT64 (ou cherchez "MSYS2 UCRT64" dans votre menu Démarrer).
-4. Dans le terminal qui s'ouvre, tapez la commande suivante pour installer le compilateur GCC et les outils de développement indispensables :
+# Step 1: Install MinGW-w64 via MSYS2
+The most modern and stable method for installing MinGW on Windows is to use the MSYS2 package manager.
+1. Go to the official MSYS2 website and download the installer (.exe file).
+2. Run the installer and follow the instructions, keeping the default installation folder (C:\msys64).
+3. At the end of the installation, check the box to open the MSYS2 UCRT64 terminal (or search for “MSYS2 UCRT64” in your Start menu).
+4. In the terminal that opens, type the following command to install the GCC compiler and the essential development tools:
 
    pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
 
-5. Appuyez sur Entrée pour confirmer les choix par défaut, puis tapez Y (Yes) pour lancer le téléchargement et l'installation.
-# Étape 2 : Ajouter MinGW aux variables d'environnement (PATH)
-Pour pouvoir utiliser la commande gcc depuis n'importe quel terminal Windows (Invite de commandes ou PowerShell), il faut déclarer le chemin du compilateur.
-1. Dans la barre de recherche Windows, tapez "Variables d'environnement" et cliquez sur Modifier les variables d'environnement système.
-2. Dans la fenêtre qui s'ouvre, cliquez sur le bouton Variables d'environnement... en bas à droite.
-3. Dans la section Variables système (en bas), cherchez la ligne nommée Path et double-cliquez dessus.
-4. Cliquez sur le bouton Nouveau à droite, puis collez le chemin d'accès exact vers le dossier bin du compilateur installé. Par défaut avec MSYS2, c'est :
+5. Press Enter to confirm the default selections, then type Y (Yes) to start the download and installation.
+# Step 2: Add MinGW to the environment variables (PATH)
+To use the gcc command from any Windows terminal (Command Prompt or PowerShell), you must set the compiler path.
+1. In the Windows search bar, type “Environment Variables” and click Edit system environment variables.
+2. In the window that opens, click the “Environment Variables...” button in the lower-right corner.
+3. In the “System Variables” section (at the bottom), locate the line labeled “Path” and double-click it.
+4. Click the “New” button on the right, then paste the exact path to the “bin” folder of the installed compiler. By default with MSYS2, this is:
 
    C:\msys64\ucrt64\bin
 
-5. Cliquez sur OK sur toutes les fenêtres ouvertes pour enregistrer les modifications.
-# Étape 3 : Vérifier l'installation
-1. Ouvrez une nouvelle Invite de commandes (cmd) ou un nouveau PowerShell (indispensable pour charger le nouveau Path).
-2. Tapez la commande suivante :
+5. Click OK in all open windows to save the changes.
+# Step 3: Check the installation
+1. Open a new Command Prompt (cmd) or a new PowerShell window (required to load the new PATH).
+2. Type the following command:
 
    gcc --version
 
-3. Si tout est correct, le terminal affichera la version de GCC (ex: gcc (Rev...) 13.x.x). Si vous avez un message d'erreur indiquant que la commande n'est pas reconnue, redémarrez votre PC.
-# Étape 4 : Écrire le code source
-1. Ouvrez un éditeur de texte simple (le Bloc-notes, Notepad++, ou Visual Studio Code).
-2. Copiez-collez ce code de test minimal :
-
+3. If everything is correct, the terminal will display the GCC version (e.g., gcc (Rev...) 13.x.x). If you see an error message stating that the command is not recognized, restart your PC.
+# Step 4: Write the source code
+1. Open a simple text editor (Notepad, Notepad++, or Visual Studio Code).
+2. Copy and paste this minimal test code:
 ----------------------------------------------
 #include <stdio.h>
 
@@ -40,21 +39,21 @@ int main() {
 }
 
 ----------------------------------------------
-3. Enregistrez le fichier sous le nom de main.c dans un dossier facile d'accès (par exemple : C:\Projets). Attention à ce que le fichier ne s'appelle pas main.c.txt.
-# Étape 5 : Compiler et exécuter le programme
-1. Ouvrez l'Invite de commandes (cmd).
-2. Naviguez jusqu'au dossier où vous avez enregistré votre fichier main.c en utilisant la commande cd :
+3. Save the file as main.c in an easily accessible folder (for example: C:\Projects). Make sure the file is not named main.c.txt.
+# Step 5: Compile and run the program
+1. Open the Command Prompt (cmd).
+2. Navigate to the folder where you saved your main.c file using the cd command:
 
    cd C:\Projets
 
-3. Compilez le fichier avec la commande suivante :
+4. Compile the file using the following command:
 
    gcc main.c -o mon_programme.exe
 
-• main.c : le nom de votre fichier de code.
-• -o mon_programme.exe : demande à GCC de créer un fichier exécutable nommé mon_programme.exe.
- 4. Exécutez votre programme compilé en tapant simplement son nom :
+• main.c : the name of your code file.
+• -o mon_programme.exe : Ask GCC to create an executable file named mon_programme.exe.
+ 4. Run your compiled program by simply typing its name:
 
    mon_programme.exe
 
-Le message "Bravo, MinGW fonctionne parfaitement !" s'affichera alors dans votre console.
+The message “Great job! MinGW is working perfectly!” will then appear in your console.
