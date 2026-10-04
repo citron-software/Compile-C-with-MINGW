@@ -41,3 +41,20 @@ int main() {
 
 ----------------------------------------------
 3. Enregistrez le fichier sous le nom de main.c dans un dossier facile d'accès (par exemple : C:\Projets). Attention à ce que le fichier ne s'appelle pas main.c.txt.
+# Étape 5 : Compiler et exécuter le programme
+1. Ouvrez l'Invite de commandes (cmd).
+2. Naviguez jusqu'au dossier où vous avez enregistré votre fichier main.c en utilisant la commande cd :
+
+   cd C:\Projets
+
+3. Compilez le fichier avec la commande suivante :
+
+   gcc main.c -o mon_programme.exe
+
+• main.c : le nom de votre fichier de code.
+• -o mon_programme.exe : demande à GCC de créer un fichier exécutable nommé mon_programme.exe.
+ 4. Exécutez votre programme compilé en tapant simplement son nom :
+
+   mon_programme.exe
+
+Le message "Bravo, MinGW fonctionne parfaitement !" s'affichera alors dans votre console.
