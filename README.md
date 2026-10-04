@@ -1,5 +1,5 @@
 # Compile C with MINGW
-FFF
+Hello!
 # Step 1: Install MinGW-w64 via MSYS2
 The most modern and stable method for installing MinGW on Windows is to use the MSYS2 package manager.
 1. Go to the official MSYS2 website and download the installer (.exe file).
