@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compiler du C avec MinGW</title>
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.12);
+            --glow: rgba(255, 255, 255, 0.2);
+            --text: #f8fafc;
+            --muted: #cbd5e1;
+            --cmd: #34d399;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+        body {
+            min-height: 100vh; background: linear-gradient(135deg, #090d16, #111827, #1e1b4b, #2e1065);
+            background-size: 400% 400%; animation: liquidBg 20s ease infinite; color: var(--text);
+            display: flex; justify-content: center; padding: 40px 20px; overflow-y: auto;
+        }
+        @keyframes liquidBg { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: 1; mix-blend-mode: plus-lighter; pointer-events: none; }
+        .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%); top: -10%; left: -10%; animation: float 12s ease-in-out infinite; }
+        .orb-2 { width: 450px; height: 450px; background: radial-gradient(circle, rgba(217,70,239,0.2) 0%, transparent 70%); bottom: 5%; right: -5%; animation: float 16s ease-in-out infinite reverse; }
+        @keyframes float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
+        .main-card {
+            position: relative; z-index: 2; width: 100%; max-width: 780px; background: var(--glass);
+            backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--border); border-radius: 24px; padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 2px var(--glow), inset 0 15px 30px rgba(255, 255, 255, 0.02);
+        }
+        h1 { font-size: 2.2rem; font-weight: 800; text-align: center; background: linear-gradient(135deg, #fff 40%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.02em; }
+        .subtitle { text-align: center; color: var(--muted); margin: 10px 0 35px 0; font-weight: 300; }
+        h2 { font-size: 1.3rem; font-weight: 700; margin: 35px 0 15px 0; color: #a5b4fc; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 8px; }
+        ol { padding-left: 20px; }
+        li { margin-bottom: 14px; line-height: 1.6; color: var(--text); }
+        li::marker { color: #6366f1; font-weight: 700; }
+        ul { list-style-type: square; padding-left: 20px; margin-top: 8px; }
+        ul li { margin-bottom: 6px; color: var(--muted); font-size: 0.95rem; }
+        ul li::marker { color: #cbd5e1; }
+        .btn-container { display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap; }
+        .download-btn {
+            flex: 1; min-width: 200px; display: flex; align-items: center; justify-content: center; padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px;
+            color: #fff; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;
+        }
+        .download-btn:hover { background: rgba(99, 102, 241, 0.2); border-color: rgba(165, 180, 252, 0.4); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2); }
+        pre { background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 14px 18px; margin: 12px 0; overflow-x: auto; }
+        code { font-family: "Fira Code", Consolas, monospace; font-size: 0.88rem; color: var(--cmd); }
+        .code-txt { color: #e2e8f0; }
+        .info-border { border-left: 3px solid #6366f1; padding-left: 12px; margin: 10px 0; color: var(--muted); font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <main class="main-card">
+        <h1>Compile C with MINGW</h1>
+        <p class="subtitle">Hello! Suivez ce guide pour configurer votre environnement de développement sous Windows.</p>
+
+        <section>
+            <h2>Step 1: Install MinGW-w64 via MSYS2</h2>
+            <ol>
+                <li>Go to the official MSYS2 website and download the installer (.exe file).
+                    <div class="btn-container">
+                        <a href="https://github.com" class="download-btn">➔ Download x86_64</a>
+                        <a href="https://github.com" class="download-btn">➔ Download arm64</a>
+                    </div>
+                </li>
+                <li>Run the installer and follow the instructions, keeping the default installation folder (<code>C:\msys64</code>).</li>
+                <li>At the end of the installation, check the box to open the MSYS2 UCRT64 terminal (or search for “MSYS2 UCRT64” in your Start menu).</li>
+                <li>In the terminal that opens, type the following command to install the GCC compiler and the essential development tools:
+                    <pre><code>pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain</code></pre>
+                </li>
+                <li>Press Enter to confirm the default selections, then type <code>Y</code> (Yes) to start the download and installation.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Step 2: Add MinGW to the environment variables (PATH)</h2>
+            <ol>
+                <li>In the Windows search bar, type “Environment Variables” and click Edit system environment variables.</li>
+                <li>In the window that opens, click the “Environment Variables...” button in the lower-right corner.</li>
+                <li>In the “System Variables” section (at the bottom), locate the line labeled “Path” and double-click it.</li>
+                <li>Click the “New” button on the right, then paste the exact path to the “bin” folder of the installed compiler. By default with MSYS2, this is:
+                    <pre><code class="code-txt">C:\msys64\ucrt64\bin</code></pre>
+                </li>
+                <li>Click OK in all open windows to save the changes.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Step 3: Check the installation</h2>
+            <ol>
+                <li>Open a new Command Prompt (cmd) or a new PowerShell window (required to load the new PATH).</li>
+                <li>Type the following command:
+                    <pre><code>gcc --version</code></pre>
+                </li>
+                <li>If everything is correct, the terminal will display the GCC version (e.g., <code>gcc (Rev...) 13.x.x</code>). If you see an error message stating that the command is not recognized, restart your PC.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Step 4: Write the source code</h2>
+            <ol>
+                <li>Open a simple text editor (Notepad, Notepad++, or Visual Studio Code).</li>
+                <li>Copy and paste this minimal test code:
+                    <pre><code class="code-txt">#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Bravo, MinGW fonctionne parfaitement !\n");
+    return 0;
+}</code></pre>
+                </li>
+                <li>Save the file as <code>main.c</code> in an easily accessible folder (for example: <code>C:\Projects</code>). 
+                    <div class="info-border">Make sure the file is not named main.c.txt.</div>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Step 5: Compile and run the program</h2>
+            <ol>
+                <li>Open the Command Prompt (cmd).</li>
+                <li>Navigate to the folder where you saved your main.c file using the cd command:
+                    <pre><code>cd C:\Projects</code></pre>
+                </li>
+                <li>Compile the file using the following command:
+                    <pre><code>gcc main.c -o mon_programme.exe</code></pre>
+                    <ul>
+                        <li><strong>main.c</strong> : the name of your code file.</li>
+                        <li><strong>-o mon_programme.exe</strong> : Ask GCC to create an executable file named mon_programme.exe.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+</body>
+</html>
